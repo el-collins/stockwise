@@ -1,0 +1,19 @@
+[2025-06-02 00:01:09.354 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:01:28.380 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:02:05.349 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:02:14.941 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:02:52.629 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:03:33.700 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:03:49.968 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:05:10.657 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:05:17.920 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:06:17.720 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:06:28.971 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:07:29.916 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:08:06.962 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:08:08.079 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:10:30.345 +01:00 WRN] Failed login attempt for username: string <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:11:44.082 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:12:28.713 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:16:51.335 +01:00 INF] Low Stock Monitoring Service is stopping... <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:16:51.336 +01:00 INF] Low Stock Monitoring Service is stopping <s:StockWise.API.BackgroundServices.LowStockMonitoringService>

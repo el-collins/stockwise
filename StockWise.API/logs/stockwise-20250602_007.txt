@@ -1,0 +1,90 @@
+2025-06-02 00:52:18.526 +01:00 [INF] Database initialized successfully
+2025-06-02 00:52:18.592 +01:00 [INF] StockWise API starting up...
+2025-06-02 00:52:18.634 +01:00 [INF] Low Stock Monitoring Service started
+2025-06-02 00:52:19.400 +01:00 [INF] Found 1 low stock products
+2025-06-02 00:52:19.445 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T23:52:19.42398Z"}
+2025-06-02 00:52:19.450 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10
+2025-06-02 00:52:19.456 +01:00 [INF] Processed 1 low stock alerts
+2025-06-02 00:52:34.768 +01:00 [INF] Low Stock Monitoring Service is stopping...
+2025-06-02 00:52:34.772 +01:00 [INF] Low Stock Monitoring Service is stopping
+[2025-06-02 00:54:58.656 +01:00 FTL] Database initialization failed <s:>
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 26 - Error Locating Server/Instance Specified)
+ ---> System.Net.Sockets.SocketException (0x80004005): Success
+   at Microsoft.Data.SqlClient.SNI.SSRP.GetPortByInstanceName(String browserHostName, String instanceName, Int64 timerExpire, Boolean allIPsInParallel, SqlConnectionIPAddressPreference ipPreference)
+   at Microsoft.Data.SqlClient.SNI.SNIProxy.CreateTcpHandle(DataSource details, Int64 timerExpire, Boolean parallel, SqlConnectionIPAddressPreference ipPreference, String cachedFQDN, SQLDNSInfo& pendingDNSInfo, Boolean tlsFirst, String hostNameInCertificate, String serverCertificateFilename)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass18_0.<Exists>b__0(DateTime giveUp)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c__DisplayClass12_0`2.<Execute>b__0(DbContext _, TState s)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.Execute[TState,TResult](IExecutionStrategy strategy, TState state, Func`2 operation, Func`2 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.Exists(Boolean retryOnNotExists)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.Exists()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreated()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at Program.<Main>$(String[] args) in /mnt/c/Users/elcol/source/repos/StockWise/StockWise.API/Program.cs:line 205
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+2025-06-02 00:54:58.656 +01:00 [FTL] Database initialization failed
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 26 - Error Locating Server/Instance Specified)
+ ---> System.Net.Sockets.SocketException (0x80004005): Success
+   at Microsoft.Data.SqlClient.SNI.SSRP.GetPortByInstanceName(String browserHostName, String instanceName, Int64 timerExpire, Boolean allIPsInParallel, SqlConnectionIPAddressPreference ipPreference)
+   at Microsoft.Data.SqlClient.SNI.SNIProxy.CreateTcpHandle(DataSource details, Int64 timerExpire, Boolean parallel, SqlConnectionIPAddressPreference ipPreference, String cachedFQDN, SQLDNSInfo& pendingDNSInfo, Boolean tlsFirst, String hostNameInCertificate, String serverCertificateFilename)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.<>c__DisplayClass18_0.<Exists>b__0(DateTime giveUp)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c__DisplayClass12_0`2.<Execute>b__0(DbContext _, TState s)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.Execute[TState,TResult](IExecutionStrategy strategy, TState state, Func`2 operation, Func`2 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.Exists(Boolean retryOnNotExists)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerDatabaseCreator.Exists()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreated()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.EnsureCreated()
+   at Program.<Main>$(String[] args) in /mnt/c/Users/elcol/source/repos/StockWise/StockWise.API/Program.cs:line 205
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+[2025-06-02 00:55:28.257 +01:00 INF] Database initialized successfully <s:>
+[2025-06-02 00:55:28.303 +01:00 INF] StockWise API starting up... <s:>
+[2025-06-02 00:55:28.343 +01:00 INF] Low Stock Monitoring Service started <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:55:28.887 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:55:28.938 +01:00 INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T23:55:28.9121884Z"} <s:StockWise.API.Services.MessageService>
+[2025-06-02 00:55:28.961 +01:00 WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10 <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:55:28.972 +01:00 INF] Processed 1 low stock alerts <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:56:52.828 +01:00 INF] Low Stock Monitoring Service is stopping... <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:56:52.831 +01:00 INF] Low Stock Monitoring Service is stopping <s:StockWise.API.BackgroundServices.LowStockMonitoringService>

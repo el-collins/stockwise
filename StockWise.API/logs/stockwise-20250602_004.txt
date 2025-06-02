@@ -1,0 +1,77 @@
+2025-06-02 00:25:11.262 +01:00 [INF] Database initialized successfully
+2025-06-02 00:25:11.289 +01:00 [INF] StockWise API starting up...
+2025-06-02 00:25:11.308 +01:00 [INF] Low Stock Monitoring Service started
+2025-06-02 00:25:11.762 +01:00 [INF] Found 1 low stock products
+2025-06-02 00:25:11.786 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T23:25:11.774525Z"}
+2025-06-02 00:25:11.790 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10
+2025-06-02 00:25:11.794 +01:00 [INF] Processed 1 low stock alerts
+2025-06-02 00:25:24.570 +01:00 [WRN] Failed to determine the https port for redirect.
+2025-06-02 00:25:24.612 +01:00 [WRN] JWT Challenge: null
+2025-06-02 00:26:01.820 +01:00 [WRN] JWT Challenge: null
+2025-06-02 00:27:28.806 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 00:27:29.546 +01:00 [INF] Retrieved products from cache
+2025-06-02 00:27:58.615 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 00:27:58.693 +01:00 [INF] Retrieved products from cache
+2025-06-02 00:28:05.098 +01:00 [WRN] JWT Challenge: null
+2025-06-02 00:28:24.802 +01:00 [WRN] JWT Challenge: null
+2025-06-02 00:29:07.508 +01:00 [INF] Low Stock Monitoring Service is stopping...
+2025-06-02 00:29:07.511 +01:00 [INF] Low Stock Monitoring Service is stopping
+[2025-06-02 00:29:33.731 +01:00 INF] Database initialized successfully <s:>
+[2025-06-02 00:29:33.758 +01:00 INF] StockWise API starting up... <s:>
+[2025-06-02 00:29:33.776 +01:00 INF] Low Stock Monitoring Service started <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:29:34.202 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:29:34.224 +01:00 INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T23:29:34.2132479Z"} <s:StockWise.API.Services.MessageService>
+[2025-06-02 00:29:34.226 +01:00 WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10 <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:29:34.226 +01:00 INF] Processed 1 low stock alerts <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:29:34.305 +01:00 WRN] Failed to determine the https port for redirect. <s:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware>
+[2025-06-02 00:29:34.453 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:29:34.565 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:29:38.450 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:29:50.246 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:30:09.694 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:30:43.719 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:32:04.203 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:32:04.271 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:32:57.258 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:33:37.027 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:33:37.027 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:33:37.063 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:33:48.420 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:33:48.420 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:33:48.420 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:33:48.448 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:33:48.456 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:06.812 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:06.812 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:06.812 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:06.852 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:06.900 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:10.040 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:10.044 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:10.044 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:10.071 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:10.078 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:13.147 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:13.148 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:13.150 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:13.297 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:13.305 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:17.119 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:17.119 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:17.119 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:34:17.173 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:34:17.181 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:35:12.034 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:35:14.126 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:35:14.765 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:35:15.265 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:35:15.764 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:35:16.220 +01:00 WRN] JWT Challenge: null <s:>
+[2025-06-02 00:36:23.229 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:36:23.229 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:36:23.229 +01:00 INF] JWT Token validated successfully for user: Collins <s:>
+[2025-06-02 00:36:23.290 +01:00 INF] Retrieved products from cache <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:36:23.300 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 00:36:28.548 +01:00 INF] User Collins logged in successfully <s:StockWise.API.Services.AuthService>
+[2025-06-02 00:37:39.471 +01:00 INF] Low Stock Monitoring Service is stopping... <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 00:37:39.472 +01:00 INF] Low Stock Monitoring Service is stopping <s:StockWise.API.BackgroundServices.LowStockMonitoringService>

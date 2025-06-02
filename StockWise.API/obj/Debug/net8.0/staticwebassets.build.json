@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "aOijAAfzlpKiaz3oWMAQAqcF/wEk3QBVF+lptWntGR0=",
+  "Source": "StockWise.API",
+  "BasePath": "_content/StockWise.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,18 @@
+2025-06-02 00:57:19.650 +01:00 [INF] Database initialized successfully
+2025-06-02 00:57:19.700 +01:00 [INF] StockWise API starting up...
+2025-06-02 00:57:19.734 +01:00 [INF] Low Stock Monitoring Service started
+2025-06-02 00:57:20.318 +01:00 [INF] Found 1 low stock products
+2025-06-02 00:57:20.394 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T23:57:20.3607211Z"}
+2025-06-02 00:57:20.426 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10
+2025-06-02 00:57:20.440 +01:00 [INF] Processed 1 low stock alerts
+2025-06-02 00:59:38.257 +01:00 [INF] Low Stock Monitoring Service is stopping...
+2025-06-02 00:59:38.264 +01:00 [INF] Low Stock Monitoring Service is stopping
+[2025-06-02 01:00:14.837 +01:00 INF] Database initialized successfully <s:>
+[2025-06-02 01:00:14.915 +01:00 INF] StockWise API starting up... <s:>
+[2025-06-02 01:00:14.970 +01:00 INF] Low Stock Monitoring Service started <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 01:00:15.639 +01:00 INF] Found 1 low stock products <s:StockWise.API.Services.ProductService>
+[2025-06-02 01:00:15.687 +01:00 INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-02T00:00:15.6593934Z"} <s:StockWise.API.Services.MessageService>
+[2025-06-02 01:00:15.713 +01:00 WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10 <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 01:00:15.716 +01:00 INF] Processed 1 low stock alerts <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 01:01:26.158 +01:00 INF] Low Stock Monitoring Service is stopping... <s:StockWise.API.BackgroundServices.LowStockMonitoringService>
+[2025-06-02 01:01:26.161 +01:00 INF] Low Stock Monitoring Service is stopping <s:StockWise.API.BackgroundServices.LowStockMonitoringService>

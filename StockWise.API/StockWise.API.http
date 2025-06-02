@@ -1,0 +1,114 @@
+@StockWise.API_HostAddress = https://localhost:5001
+
+### Get all products
+GET {{StockWise.API_HostAddress}}/api/products
+Accept: application/json
+
+###
+
+### Get product by ID
+GET {{StockWise.API_HostAddress}}/api/products/1
+Accept: application/json
+
+###
+
+### Get product by SKU
+GET {{StockWise.API_HostAddress}}/api/products/sku/LAP001
+Accept: application/json
+
+###
+
+### Create a new product
+POST {{StockWise.API_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Gaming Monitor",
+  "description": "27-inch 4K gaming monitor with HDR",
+  "sku": "MON001",
+  "price": 299.99,
+  "stockQuantity": 25,
+  "lowStockThreshold": 5,
+  "category": "Electronics"
+}
+
+###
+
+### Update product
+PUT {{StockWise.API_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Updated Laptop",
+  "price": 1099.99,
+  "stockQuantity": 45
+}
+
+###
+
+### Update product stock
+PATCH {{StockWise.API_HostAddress}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "quantity": 30
+}
+
+###
+
+### Get low stock products
+GET {{StockWise.API_HostAddress}}/api/products/low-stock
+Accept: application/json
+
+###
+
+### Get all orders
+GET {{StockWise.API_HostAddress}}/api/orders
+Accept: application/json
+
+###
+
+### Create a new order
+POST {{StockWise.API_HostAddress}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "John Doe",
+  "customerEmail": "john.doe@example.com",
+  "orderItems": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 2,
+      "quantity": 1
+    }
+  ]
+}
+
+###
+
+### Get order by ID
+GET {{StockWise.API_HostAddress}}/api/orders/1
+Accept: application/json
+
+###
+
+### Update order status
+PATCH {{StockWise.API_HostAddress}}/api/orders/1/status
+Content-Type: application/json
+
+{
+  "status": 2
+}
+
+###
+
+### Cancel order
+POST {{StockWise.API_HostAddress}}/api/orders/1/cancel
+
+###
+
+### Delete product (soft delete)
+DELETE {{StockWise.API_HostAddress}}/api/products/1

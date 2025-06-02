@@ -1,0 +1,10 @@
+
+# Ignore all files in the logs directory
+logs/*
+
+# Ignore all files in the migrations directory
+Migrations/*
+
+.vscode/*
+.vs
+

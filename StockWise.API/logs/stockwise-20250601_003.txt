@@ -1,0 +1,20 @@
+2025-06-01 23:27:52.759 +01:00 [INF] Database initialized successfully
+2025-06-01 23:27:52.795 +01:00 [INF] StockWise API starting up...
+2025-06-01 23:27:52.825 +01:00 [INF] Low Stock Monitoring Service started
+2025-06-01 23:27:53.767 +01:00 [INF] Found 1 low stock products
+2025-06-01 23:27:53.788 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T22:27:53.7755795Z"}
+2025-06-01 23:27:53.789 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10
+2025-06-01 23:27:53.789 +01:00 [INF] Processed 1 low stock alerts
+2025-06-01 23:29:48.858 +01:00 [WRN] Failed to determine the https port for redirect.
+2025-06-01 23:34:25.360 +01:00 [INF] New user registered: Collins
+2025-06-01 23:35:03.863 +01:00 [INF] User Collins logged in successfully
+2025-06-01 23:51:50.281 +01:00 [INF] User Collins logged in successfully
+2025-06-01 23:57:53.879 +01:00 [INF] Found 1 low stock products
+2025-06-01 23:57:53.880 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-01T22:57:53.8801241Z"}
+2025-06-01 23:57:53.880 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10
+2025-06-01 23:57:53.880 +01:00 [INF] Processed 1 low stock alerts
+2025-06-01 23:58:15.786 +01:00 [INF] User Collins logged in successfully
+2025-06-01 23:58:31.664 +01:00 [INF] User Collins logged in successfully
+2025-06-01 23:58:51.074 +01:00 [INF] User Collins logged in successfully
+2025-06-01 23:59:27.187 +01:00 [INF] User Collins logged in successfully
+2025-06-01 23:59:28.801 +01:00 [INF] User Collins logged in successfully
