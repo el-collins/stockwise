@@ -1,0 +1,30 @@
+2025-06-02 01:06:06.450 +01:00 [INF] Database initialized successfully
+2025-06-02 01:06:06.517 +01:00 [INF] StockWise API starting up...
+2025-06-02 01:06:06.575 +01:00 [INF] Low Stock Monitoring Service started
+2025-06-02 01:06:07.431 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:06:07.475 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":5,"Threshold":10,"Timestamp":"2025-06-02T00:06:07.4491237Z"}
+2025-06-02 01:06:07.504 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 5, Threshold: 10
+2025-06-02 01:06:07.505 +01:00 [INF] Processed 1 low stock alerts
+2025-06-02 01:06:15.699 +01:00 [WRN] Failed to determine the https port for redirect.
+2025-06-02 01:06:15.843 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:06:15.843 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:06:16.013 +01:00 [INF] Cached value for key: products:all
+2025-06-02 01:06:16.015 +01:00 [INF] Retrieved 3 products from database
+2025-06-02 01:08:02.764 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:08:02.789 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:09:09.456 +01:00 [WRN] JWT Challenge: null
+2025-06-02 01:09:19.227 +01:00 [WRN] JWT Challenge: null
+2025-06-02 01:09:27.735 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:09:27.736 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:09:27.739 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:09:27.747 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:09:28.346 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:10:05.718 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:10:06.886 +01:00 [INF] Published message to stock.events/stock.updated: {"ProductId":2,"OldQuantity":100,"NewQuantity":99,"Timestamp":"2025-06-02T00:10:06.8854233Z"}
+2025-06-02 01:10:07.102 +01:00 [INF] Published message to order.events/order.placed: {"OrderId":1,"OrderNumber":"ORD-20250602-E3A58D91","TotalAmount":29.99,"Timestamp":"2025-06-02T00:10:07.1005519Z"}
+2025-06-02 01:10:07.102 +01:00 [INF] Created order ORD-20250602-E3A58D91 with total amount 29.99
+2025-06-02 01:10:07.265 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:10:07.267 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:10:07.269 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:10:29.732 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:10:29.755 +01:00 [INF] Found 1 low stock products

@@ -530,3 +530,4 @@ RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified end
    at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
    at StockWise.API.BackgroundServices.LowStockMonitoringService.CheckLowStockProducts() in C:\Users\elcol\source\repos\StockWise\StockWise.API\Services\LowStockMonitoringService.cs:line 46
    at StockWise.API.BackgroundServices.LowStockMonitoringService.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\elcol\source\repos\StockWise\StockWise.API\Services\LowStockMonitoringService.cs:line 27
+[2025-06-02 01:05:50.682 +01:00 INF] Low Stock Monitoring Service is stopping... <s:StockWise.API.BackgroundServices.LowStockMonitoringService>

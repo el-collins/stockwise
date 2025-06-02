@@ -3,9 +3,7 @@ import {
   Package, 
   ShoppingCart, 
   AlertTriangle, 
-  TrendingUp,
   DollarSign,
-  Users
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { productsApi, ordersApi } from '../lib/api';
@@ -18,8 +16,6 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer,
-  LineChart,
-  Line,
   PieChart,
   Pie,
   Cell
