@@ -28,3 +28,61 @@
 2025-06-02 01:10:07.269 +01:00 [INF] Retrieved products from cache
 2025-06-02 01:10:29.732 +01:00 [INF] JWT Token validated successfully for user: Collins
 2025-06-02 01:10:29.755 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:19:34.197 +01:00 [WRN] JWT Challenge: null
+2025-06-02 01:21:59.810 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:21:59.810 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:21:59.812 +01:00 [INF] JWT Token validated successfully for user: Collins
+2025-06-02 01:21:59.813 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:22:00.171 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:30:31.045 +01:00 [WRN] Failed login attempt for username: demo
+2025-06-02 01:30:51.270 +01:00 [INF] User demo logged in successfully
+2025-06-02 01:30:51.357 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:30:51.357 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:30:51.358 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:30:51.363 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:30:51.405 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:34:53.718 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:34:53.776 +01:00 [INF] Published message to stock.events/stock.updated: {"ProductId":2,"OldQuantity":99,"NewQuantity":100,"Timestamp":"2025-06-02T00:34:53.7767435Z"}
+2025-06-02 01:34:53.824 +01:00 [INF] Published message to order.events/order.cancelled: {"OrderId":1,"OrderNumber":"ORD-20250602-E3A58D91","Timestamp":"2025-06-02T00:34:53.82152Z"}
+2025-06-02 01:34:53.824 +01:00 [INF] Cancelled order ORD-20250602-E3A58D91 and restored stock
+2025-06-02 01:34:53.842 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:34:53.842 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:34:53.846 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:35:19.136 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:19.194 +01:00 [INF] Published message to stock.events/stock.updated: {"ProductId":3,"OldQuantity":5,"NewQuantity":0,"Timestamp":"2025-06-02T00:35:19.1943851Z"}
+2025-06-02 01:35:19.194 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":0,"Threshold":10,"Timestamp":"2025-06-02T00:35:19.1948457Z"}
+2025-06-02 01:35:19.255 +01:00 [INF] Published message to order.events/order.placed: {"OrderId":2,"OrderNumber":"ORD-20250602-1AB06B68","TotalAmount":399.95,"Timestamp":"2025-06-02T00:35:19.2556014Z"}
+2025-06-02 01:35:19.256 +01:00 [INF] Created order ORD-20250602-1AB06B68 with total amount 399.95
+2025-06-02 01:35:19.282 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:19.284 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:19.287 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:35:22.957 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:23.103 +01:00 [INF] Updated order 2 status to "Processing"
+2025-06-02 01:35:23.141 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:26.186 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:26.242 +01:00 [INF] Updated order 2 status to "Shipped"
+2025-06-02 01:35:26.267 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:30.451 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:30.497 +01:00 [INF] Updated order 2 status to "Delivered"
+2025-06-02 01:35:30.510 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:37.504 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:35:37.553 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:36:07.544 +01:00 [INF] Found 1 low stock products
+2025-06-02 01:36:07.545 +01:00 [INF] Published message to alert.events/stock.low: {"ProductId":3,"ProductName":"Mechanical Keyboard","CurrentStock":0,"Threshold":10,"Timestamp":"2025-06-02T00:36:07.5452422Z"}
+2025-06-02 01:36:07.545 +01:00 [WRN] Low stock alert sent for product: Mechanical Keyboard (ID: 3), Current Stock: 0, Threshold: 10
+2025-06-02 01:36:07.545 +01:00 [INF] Processed 1 low stock alerts
+2025-06-02 01:36:30.991 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:36:31.134 +01:00 [INF] Removed cached value for key: product:3
+2025-06-02 01:36:31.135 +01:00 [INF] Removed cached value for key: products:all
+2025-06-02 01:36:31.135 +01:00 [INF] Published message to stock.events/stock.updated: {"ProductId":3,"OldQuantity":0,"NewQuantity":15,"Timestamp":"2025-06-02T00:36:31.1358007Z"}
+2025-06-02 01:36:31.136 +01:00 [INF] Updated stock for product 3 from 0 to 15
+2025-06-02 01:36:31.147 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:36:31.258 +01:00 [INF] Cached value for key: products:all
+2025-06-02 01:36:31.258 +01:00 [INF] Retrieved 3 products from database
+2025-06-02 01:36:34.319 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:36:34.330 +01:00 [INF] Found 0 low stock products
+2025-06-02 01:45:33.023 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:45:33.029 +01:00 [INF] Retrieved products from cache
+2025-06-02 01:45:33.086 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:45:33.088 +01:00 [INF] JWT Token validated successfully for user: demo
+2025-06-02 01:45:33.170 +01:00 [INF] Found 0 low stock products

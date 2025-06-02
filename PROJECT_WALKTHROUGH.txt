@@ -1,0 +1,1018 @@
+===============================================================================
+                      STOCKWISE PROJECT COMPREHENSIVE WALKTHROUGH
+===============================================================================
+
+TABLE OF CONTENTS
+=================
+1. PROJECT OVERVIEW
+2. ARCHITECTURE & TECHNOLOGY STACK
+3. BACKEND IMPLEMENTATION (StockWise.API)
+4. FRONTEND IMPLEMENTATION (stockwise.client)
+5. SETUP & CONFIGURATION
+6. API DOCUMENTATION
+7. AUTHENTICATION & SECURITY
+8. EVENT-DRIVEN ARCHITECTURE
+9. CACHING STRATEGY
+10. TESTING & USAGE EXAMPLES
+11. DEPLOYMENT CONSIDERATIONS
+12. TROUBLESHOOTING
+
+===============================================================================
+1. PROJECT OVERVIEW
+===============================================================================
+
+StockWise is a comprehensive inventory management system built with modern 
+technologies. It provides a complete solution for managing products, orders, 
+and stock levels with real-time monitoring and notifications.
+
+KEY FEATURES:
+- JWT-based authentication and authorization
+- Full CRUD operations for products and orders
+- Event-driven architecture with RabbitMQ
+- Redis caching for performance optimization
+- Background services for low-stock monitoring
+- Real-time stock validation and updates
+- Modern React frontend with TypeScript
+- Interactive dashboard with charts and statistics
+- Mobile-responsive design
+
+BUSINESS VALUE:
+- Prevents overselling with real-time stock validation
+- Automated low-stock alerts reduce manual monitoring
+- Event-driven architecture enables system scalability
+- Caching improves response times and user experience
+- Modern UI increases user productivity
+
+===============================================================================
+2. ARCHITECTURE & TECHNOLOGY STACK
+===============================================================================
+
+BACKEND STACK:
+- ASP.NET Core 8.0 (Web API)
+- Entity Framework Core (ORM)
+- SQL Server (Database)
+- Redis (Caching)
+- RabbitMQ (Message Queue)
+- AutoMapper (Object Mapping)
+- Serilog (Logging)
+- FluentValidation (Input Validation)
+- JWT (Authentication)
+- Swagger/OpenAPI (Documentation)
+
+FRONTEND STACK:
+- React 19 with TypeScript
+- Tailwind CSS (Styling)
+- Radix UI (Component Library)
+- TanStack Query (Data Fetching)
+- React Router (Navigation)
+- React Hook Form (Form Management)
+- Zod (Schema Validation)
+- Recharts (Data Visualization)
+- Axios (HTTP Client)
+
+ARCHITECTURE PATTERN:
+The system follows a layered architecture with clear separation of concerns:
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Presentation  │    │    Business     │    │   Data Access   │
+│     Layer       │    │     Layer       │    │     Layer       │
+│                 │    │                 │    │                 │
+│ • Controllers   │───▶│ • Services      │───▶│ • DbContext     │
+│ • DTOs          │    │ • Validators    │    │ • Repositories  │
+│ • Middlewares   │    │ • Mappers       │    │ • Models        │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │  Infrastructure │
+                    │     Layer       │
+                    │                 │
+                    │ • Redis Cache   │
+                    │ • RabbitMQ      │
+                    │ • Background    │
+                    │   Services      │
+                    └─────────────────┘
+
+===============================================================================
+3. BACKEND IMPLEMENTATION (StockWise.API)
+===============================================================================
+
+PROJECT STRUCTURE:
+StockWise.API/
+├── Controllers/          # API endpoints
+│   ├── AuthController.cs
+│   ├── ProductsController.cs
+│   └── OrdersController.cs
+├── Models/              # Data models
+│   ├── Product.cs
+│   ├── Order.cs
+│   ├── OrderItem.cs
+│   └── User.cs
+├── DTOs/               # Data transfer objects
+│   ├── Auth/
+│   ├── Products/
+│   └── Orders/
+├── Services/           # Business logic
+│   ├── ICacheService.cs & CacheService.cs
+│   ├── IMessageService.cs & MessageService.cs
+│   ├── IProductService.cs & ProductService.cs
+│   ├── IOrderService.cs & OrderService.cs
+│   ├── IAuthService.cs & AuthService.cs
+│   └── LowStockMonitoringService.cs
+├── Data/               # Database context
+│   ├── ApplicationDbContext.cs
+│   └── Migrations/
+├── Mapping/            # AutoMapper profiles
+└── Properties/
+
+CORE MODELS:
+
+Product Model:
+- Id (Primary Key)
+- Name (Product name)
+- Description (Detailed description)
+- SKU (Stock Keeping Unit - unique identifier)
+- Price (Decimal price)
+- StockQuantity (Current stock level)
+- LowStockThreshold (Alert threshold)
+- Category (Product category)
+- IsActive (Soft delete flag)
+- CreatedDate, UpdatedDate (Timestamps)
+
+Order Model:
+- Id (Primary Key)
+- OrderNumber (Unique order identifier)
+- CustomerName (Customer information)
+- CustomerEmail (Customer contact)
+- TotalAmount (Calculated total)
+- Status (Order status enum)
+- CreatedDate, UpdatedDate (Timestamps)
+- OrderItems (Navigation property)
+
+OrderItem Model:
+- Id (Primary Key)
+- OrderId (Foreign key to Order)
+- ProductId (Foreign key to Product)
+- Quantity (Ordered quantity)
+- UnitPrice (Price at time of order)
+- TotalPrice (Calculated: Quantity × UnitPrice)
+
+User Model:
+- Id (Primary Key)
+- Username (Unique username)
+- Email (User email)
+- PasswordHash (BCrypt hashed password)
+- FirstName, LastName (User details)
+- Role (User role for authorization)
+- IsActive (Account status)
+- CreatedDate, LastLogin (Timestamps)
+
+KEY SERVICES:
+
+CacheService:
+- Redis integration with connection pooling
+- JSON serialization for complex objects
+- Pattern-based cache invalidation
+- Configurable expiration times
+- Error handling with fallback to direct database access
+
+MessageService:
+- RabbitMQ integration with topic exchanges
+- Event publishing for stock updates, orders, and alerts
+- Connection management with auto-reconnection
+- Message serialization and error handling
+
+ProductService:
+- Full CRUD operations with caching
+- Stock quantity updates with validation
+- Low stock detection and alerting
+- Search and filtering capabilities
+- Event publishing for stock changes
+
+OrderService:
+- Order creation with stock validation
+- Automatic stock deduction on order placement
+- Stock restoration on order cancellation
+- Order status management
+- Transaction safety with rollback capabilities
+
+AuthService:
+- User registration and login
+- JWT token generation and validation
+- Password hashing with BCrypt
+- User profile management
+- Role-based authorization
+
+BACKGROUND SERVICES:
+
+LowStockMonitoringService:
+- Hosted service running every 30 minutes
+- Monitors products below low stock threshold
+- Publishes alerts to RabbitMQ
+- Logs warnings for administrative action
+- Configurable monitoring intervals
+
+===============================================================================
+4. FRONTEND IMPLEMENTATION (stockwise.client)
+===============================================================================
+
+PROJECT STRUCTURE:
+stockwise.client/
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   ├── ui/             # Base UI components
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Input.tsx
+│   │   │   └── Dialog.tsx
+│   │   └── Layout.tsx      # Main layout component
+│   ├── pages/              # Page components
+│   │   ├── Dashboard.tsx
+│   │   ├── Products.tsx
+│   │   ├── Orders.tsx
+│   │   ├── Login.tsx
+│   │   └── Register.tsx
+│   ├── services/           # API services
+│   │   ├── api.ts         # Axios configuration
+│   │   ├── auth.ts        # Authentication API
+│   │   ├── products.ts    # Products API
+│   │   └── orders.ts      # Orders API
+│   ├── hooks/              # Custom React hooks
+│   │   ├── useAuth.ts     # Authentication hook
+│   │   └── useLocalStorage.ts
+│   ├── types/              # TypeScript interfaces
+│   │   ├── auth.ts
+│   │   ├── product.ts
+│   │   └── order.ts
+│   └── utils/              # Utility functions
+│       └── formatters.ts
+├── public/                 # Static assets
+└── package.json           # Dependencies and scripts
+
+COMPONENT DESIGN SYSTEM:
+
+Button Component:
+- Multiple variants (default, destructive, outline, secondary, ghost, link)
+- Size variations (default, sm, lg, icon)
+- Loading states with spinner
+- Accessibility features (ARIA labels, keyboard navigation)
+- Consistent styling with Tailwind CSS
+
+Card Components:
+- Card, CardHeader, CardContent, CardFooter
+- Responsive design with proper spacing
+- Shadow and border styling
+- Composable structure for flexible layouts
+
+Input Components:
+- Styled input fields with consistent appearance
+- Error state styling
+- Label integration
+- Form validation feedback
+
+PAGES IMPLEMENTATION:
+
+Dashboard Page:
+- Statistics cards showing key metrics
+- Interactive charts (Bar chart for stock levels, Pie chart for orders)
+- Recent orders list with status indicators
+- Low stock alerts with action buttons
+- Real-time data updates with React Query
+- Responsive grid layout
+
+Products Page:
+- Product card grid with responsive layout
+- Search functionality with debounced input
+- Category filtering
+- Product creation/editing modal forms
+- Stock update dialog with quick adjustment buttons
+- Visual stock status indicators
+- Pagination for large datasets
+
+Orders Page:
+- Order list with search and filtering
+- Order creation form with product selection
+- Real-time total calculation
+- Order detail view with customer information
+- Order status management
+- Cancellation functionality with confirmation
+
+Authentication Pages:
+- Login form with validation
+- Registration form with password confirmation
+- Error handling and success feedback
+- Automatic redirection after authentication
+- Form state management with React Hook Form
+
+HOOKS AND UTILITIES:
+
+useAuth Hook:
+- Authentication state management
+- Token storage in localStorage
+- Automatic token refresh
+- Login/logout functionality
+- Protected route handling
+
+API Services:
+- Axios instance with base URL configuration
+- Request/response interceptors for authentication
+- Error handling with consistent error messages
+- TypeScript interfaces for API responses
+- Automatic token inclusion in requests
+
+DATA MANAGEMENT:
+
+React Query Integration:
+- Efficient data fetching with caching
+- Background refetching for fresh data
+- Optimistic updates for better UX
+- Error boundaries for graceful error handling
+- Infinite queries for pagination
+
+Form Management:
+- React Hook Form for efficient form handling
+- Zod schema validation
+- Real-time validation feedback
+- Form submission with loading states
+- Error handling and success notifications
+
+STYLING AND DESIGN:
+
+Tailwind CSS Configuration:
+- Custom color palette for brand consistency
+- Responsive breakpoints for mobile-first design
+- Component-specific utility classes
+- Dark mode support (configurable)
+- Animation utilities for smooth interactions
+
+Design Principles:
+- Consistent spacing and typography
+- Accessible color contrasts
+- Intuitive navigation and layout
+- Loading states for better perceived performance
+- Error states with helpful messaging
+
+===============================================================================
+5. SETUP & CONFIGURATION
+===============================================================================
+
+PREREQUISITES:
+- .NET 8.0 SDK
+- Node.js 18+ with npm
+- SQL Server (LocalDB or full instance)
+- Redis Server
+- RabbitMQ Server
+- Git (for cloning)
+
+BACKEND SETUP:
+
+1. Database Configuration:
+   Update appsettings.json with your SQL Server connection string:
+   
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=StockWiseDb;Trusted_Connection=true"
+   }
+
+2. Redis Configuration:
+   Install Redis (via Docker recommended):
+   docker run -d -p 6379:6379 redis:alpine
+   
+   Update connection string:
+   "ConnectionStrings": {
+     "Redis": "localhost:6379"
+   }
+
+3. RabbitMQ Configuration:
+   Install RabbitMQ (via Docker recommended):
+   docker run -d -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+   
+   Configure settings:
+   "RabbitMQ": {
+     "HostName": "localhost",
+     "Port": 5672,
+     "UserName": "guest",
+     "Password": "guest"
+   }
+
+4. JWT Configuration:
+   Generate a secure secret key:
+   "JwtSettings": {
+     "SecretKey": "Your-Very-Long-And-Secure-Secret-Key-Here",
+     "Issuer": "StockWise.API",
+     "Audience": "StockWise.Client",
+     "ExpirationInHours": 24
+   }
+
+5. Database Migration:
+   cd StockWise.API
+   dotnet ef database update
+
+FRONTEND SETUP:
+
+1. Environment Configuration:
+   Create .env file in stockwise.client/:
+   VITE_API_BASE_URL=https://localhost:5127/api
+
+2. Install Dependencies:
+   cd stockwise.client
+   npm install
+
+3. Development Server:
+   npm run dev
+
+RUNNING THE APPLICATION:
+
+1. Start External Services:
+   - Redis: docker run -d -p 6379:6379 redis:alpine
+   - RabbitMQ: docker run -d -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+2. Start Backend:
+   cd StockWise.API
+   dotnet run
+
+3. Start Frontend:
+   cd stockwise.client
+   npm run dev
+
+ACCESS POINTS:
+- Frontend: http://localhost:5173
+- Backend API: https://localhost:5127
+- Swagger UI: http://localhost:5127/swagger
+- RabbitMQ Management: http://localhost:15672 (guest/guest)
+
+DEFAULT TEST ACCOUNTS:
+- Admin: username=admin, password=admin123
+- Demo User: username=demo, password=demo123
+
+===============================================================================
+6. API DOCUMENTATION
+===============================================================================
+
+AUTHENTICATION ENDPOINTS:
+
+POST /api/auth/register
+- Registers a new user
+- Body: { username, email, password, confirmPassword, firstName, lastName }
+- Returns: User details and JWT token
+
+POST /api/auth/login
+- Authenticates user and returns JWT token
+- Body: { username, password }
+- Returns: { token, user, expiresAt }
+
+GET /api/auth/profile
+- Gets current user profile (requires authentication)
+- Headers: Authorization: Bearer {token}
+- Returns: User profile information
+
+PUT /api/auth/profile
+- Updates user profile (requires authentication)
+- Body: { firstName, lastName, email }
+- Returns: Updated user profile
+
+POST /api/auth/change-password
+- Changes user password (requires authentication)
+- Body: { currentPassword, newPassword, confirmPassword }
+- Returns: Success message
+
+POST /api/auth/logout
+- Invalidates JWT token
+- Returns: Success message
+
+PRODUCTS ENDPOINTS (All require authentication):
+
+GET /api/products
+- Retrieves all active products
+- Query params: search, category, page, pageSize
+- Returns: Paginated list of products
+
+GET /api/products/{id}
+- Retrieves specific product by ID
+- Returns: Product details
+
+GET /api/products/sku/{sku}
+- Retrieves product by SKU
+- Returns: Product details
+
+POST /api/products
+- Creates new product
+- Body: { name, description, sku, price, stockQuantity, lowStockThreshold, category }
+- Returns: Created product with ID
+
+PUT /api/products/{id}
+- Updates existing product
+- Body: Product update data
+- Returns: Updated product
+
+DELETE /api/products/{id}
+- Soft deletes product (sets IsActive = false)
+- Returns: Success message
+
+PATCH /api/products/{id}/stock
+- Updates stock quantity
+- Body: { quantity, operation } (operation: "set", "add", "subtract")
+- Returns: Updated product with new stock level
+
+GET /api/products/low-stock
+- Retrieves products below low stock threshold
+- Returns: List of low stock products
+
+ORDERS ENDPOINTS (All require authentication):
+
+GET /api/orders
+- Retrieves all orders
+- Query params: status, customerName, page, pageSize
+- Returns: Paginated list of orders
+
+GET /api/orders/{id}
+- Retrieves specific order by ID
+- Returns: Order details with items
+
+GET /api/orders/number/{orderNumber}
+- Retrieves order by order number
+- Returns: Order details
+
+POST /api/orders
+- Creates new order
+- Body: { customerName, customerEmail, orderItems: [{ productId, quantity }] }
+- Returns: Created order with calculated totals
+
+PATCH /api/orders/{id}/status
+- Updates order status
+- Body: { status } (Pending, Confirmed, Processing, Shipped, Delivered, Cancelled)
+- Returns: Updated order
+
+POST /api/orders/{id}/cancel
+- Cancels order and restores stock
+- Returns: Cancelled order details
+
+ERROR RESPONSES:
+All endpoints return standardized error responses:
+{
+  "error": "Error message",
+  "details": "Detailed error information",
+  "timestamp": "2024-01-01T00:00:00Z"
+}
+
+HTTP Status Codes:
+- 200: Success
+- 201: Created
+- 400: Bad Request (validation errors)
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+- 500: Internal Server Error
+
+===============================================================================
+7. AUTHENTICATION & SECURITY
+===============================================================================
+
+JWT IMPLEMENTATION:
+
+Token Structure:
+- Header: Algorithm and token type
+- Payload: User claims (id, username, role, expiration)
+- Signature: Verification using secret key
+
+Token Claims:
+- sub: User ID
+- unique_name: Username
+- email: User email
+- role: User role (Admin, User)
+- exp: Expiration timestamp
+- iss: Issuer (StockWise.API)
+- aud: Audience (StockWise.Client)
+
+Authentication Flow:
+1. User submits login credentials
+2. Server validates credentials against database
+3. Server generates JWT token with user claims
+4. Client stores token in localStorage
+5. Client includes token in Authorization header for API requests
+6. Server validates token on protected endpoints
+
+Password Security:
+- BCrypt hashing with salt rounds
+- Password strength validation
+- Secure password reset process
+- Protection against brute force attacks
+
+Frontend Security:
+- Protected routes with authentication guards
+- Automatic token refresh
+- Secure token storage
+- CSRF protection with SameSite cookies
+
+Authorization Levels:
+- Public: Authentication endpoints
+- Authenticated: All product and order operations
+- Admin: User management, system configuration
+
+===============================================================================
+8. EVENT-DRIVEN ARCHITECTURE
+===============================================================================
+
+RABBITMQ INTEGRATION:
+
+Exchange Configuration:
+- stock.events: Topic exchange for stock-related events
+- order.events: Topic exchange for order-related events
+- alert.events: Topic exchange for system alerts
+
+Event Types:
+
+Stock Events:
+- stock.updated: Published when stock quantity changes
+  Payload: { productId, oldQuantity, newQuantity, timestamp }
+- stock.low: Published when stock falls below threshold
+  Payload: { productId, currentQuantity, threshold, timestamp }
+
+Order Events:
+- order.placed: Published when order is successfully created
+  Payload: { orderId, orderNumber, customerEmail, totalAmount, items }
+- order.cancelled: Published when order is cancelled
+  Payload: { orderId, orderNumber, cancelReason, restoredItems }
+
+Alert Events:
+- stock.low: Low stock alerts for monitoring systems
+  Payload: { productId, productName, currentStock, threshold }
+
+Event Publishing:
+Events are published asynchronously to prevent blocking main operations.
+Retry logic ensures message delivery reliability.
+
+Future Extensions:
+- Email notifications for low stock alerts
+- Webhook integrations for external systems
+- Event sourcing for audit trails
+- Real-time notifications via SignalR
+
+===============================================================================
+9. CACHING STRATEGY
+===============================================================================
+
+REDIS IMPLEMENTATION:
+
+Cache Keys:
+- product:{id}: Individual product cache
+- products:all: All products list cache
+- user:{id}: User profile cache
+- lowstock:products: Low stock products cache
+
+Cache Invalidation:
+- Time-based: 30-minute expiration for product data
+- Event-based: Cache invalidation on stock updates
+- Pattern-based: Wildcard invalidation for related keys
+
+Caching Patterns:
+
+Cache-Aside Pattern:
+1. Check cache for data
+2. If cache miss, fetch from database
+3. Store result in cache
+4. Return data to client
+
+Write-Through Pattern:
+1. Update database
+2. Update cache simultaneously
+3. Ensure data consistency
+
+Performance Benefits:
+- Reduced database load
+- Faster response times
+- Improved scalability
+- Better user experience
+
+Cache Monitoring:
+- Hit/miss ratios
+- Cache size monitoring
+- Performance metrics
+- Error handling for cache failures
+
+===============================================================================
+10. TESTING & USAGE EXAMPLES
+===============================================================================
+
+API TESTING EXAMPLES:
+
+1. User Registration:
+curl -X POST "https://localhost:5127/api/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password123",
+    "confirmPassword": "password123",
+    "firstName": "Test",
+    "lastName": "User"
+  }'
+
+2. User Login:
+curl -X POST "https://localhost:5127/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+  }'
+
+3. Create Product:
+curl -X POST "https://localhost:5127/api/products" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "name": "Gaming Monitor",
+    "description": "27-inch 4K gaming monitor",
+    "sku": "MON001",
+    "price": 299.99,
+    "stockQuantity": 25,
+    "lowStockThreshold": 5,
+    "category": "Electronics"
+  }'
+
+4. Update Stock:
+curl -X PATCH "https://localhost:5127/api/products/1/stock" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "quantity": 10,
+    "operation": "add"
+  }'
+
+5. Place Order:
+curl -X POST "https://localhost:5127/api/orders" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "customerName": "John Doe",
+    "customerEmail": "john@example.com",
+    "orderItems": [
+      {
+        "productId": 1,
+        "quantity": 2
+      }
+    ]
+  }'
+
+FRONTEND USAGE:
+
+1. Authentication Flow:
+   - Navigate to login page
+   - Enter credentials (admin/admin123)
+   - Automatic redirect to dashboard
+   - JWT token stored in localStorage
+
+2. Product Management:
+   - View products in grid layout
+   - Use search to filter products
+   - Click "Add Product" to create new items
+   - Use stock adjustment dialog for quick updates
+
+3. Order Management:
+   - View orders with status indicators
+   - Create new orders with product selection
+   - View order details with customer information
+   - Cancel orders with automatic stock restoration
+
+4. Dashboard Monitoring:
+   - View real-time statistics
+   - Monitor stock levels with charts
+   - Check low stock alerts
+   - Review recent order activity
+
+TESTING SCENARIOS:
+
+1. Stock Validation:
+   - Create order with quantity exceeding stock
+   - Verify error message and order rejection
+   - Confirm stock levels remain unchanged
+
+2. Low Stock Alerts:
+   - Reduce product stock below threshold
+   - Wait for background service cycle (30 minutes)
+   - Check logs for alert generation
+   - Verify RabbitMQ message publication
+
+3. Cache Performance:
+   - Load products page multiple times
+   - Monitor response times
+   - Check Redis for cached data
+   - Verify cache invalidation on updates
+
+4. Event Publishing:
+   - Update product stock
+   - Check RabbitMQ management interface
+   - Verify event publication to correct exchange
+   - Monitor event payload structure
+
+===============================================================================
+11. DEPLOYMENT CONSIDERATIONS
+===============================================================================
+
+PRODUCTION CHECKLIST:
+
+Backend Deployment:
+- Update connection strings for production databases
+- Configure secure JWT secret keys (minimum 256 bits)
+- Set up SSL certificates for HTTPS
+- Configure CORS policies for frontend domain
+- Set up Redis cluster for high availability
+- Configure RabbitMQ cluster with persistence
+- Enable detailed logging with log rotation
+- Set up health checks and monitoring
+- Configure rate limiting for API endpoints
+- Set up backup strategies for database and Redis
+
+Frontend Deployment:
+- Build production bundle: npm run build
+- Configure web server (Nginx, Apache, IIS)
+- Set up HTTPS with proper certificates
+- Configure caching headers for static assets
+- Set up CDN for global distribution
+- Configure environment variables for production API
+- Set up error tracking (Sentry, Application Insights)
+- Configure performance monitoring
+
+Database Considerations:
+- Index optimization for frequently queried columns
+- Connection pooling configuration
+- Backup and recovery procedures
+- Database maintenance schedules
+- Performance monitoring and tuning
+
+Security Hardening:
+- Regular security updates
+- SQL injection prevention (parameterized queries)
+- XSS protection with Content Security Policy
+- CSRF protection
+- Rate limiting and DDoS protection
+- Regular security audits
+- Dependency vulnerability scanning
+
+Performance Optimization:
+- Database query optimization
+- Redis memory management
+- API response compression
+- Image optimization
+- Lazy loading for large datasets
+- Connection pooling
+- Caching strategies
+
+Monitoring and Alerting:
+- Application Performance Monitoring (APM)
+- Error tracking and alerting
+- Business metrics monitoring
+- Infrastructure monitoring
+- Log aggregation and analysis
+- Health check endpoints
+
+===============================================================================
+12. TROUBLESHOOTING
+===============================================================================
+
+COMMON ISSUES AND SOLUTIONS:
+
+1. Database Connection Issues:
+   Problem: "Cannot connect to SQL Server"
+   Solutions:
+   - Verify SQL Server is running
+   - Check connection string format
+   - Ensure database exists (run migrations)
+   - Verify firewall settings
+
+2. Redis Connection Issues:
+   Problem: "Redis connection failed"
+   Solutions:
+   - Verify Redis server is running: redis-cli ping
+   - Check Redis configuration
+   - Verify connection string
+   - Check firewall settings
+
+3. RabbitMQ Connection Issues:
+   Problem: "RabbitMQ connection failed"
+   Solutions:
+   - Verify RabbitMQ is running
+   - Check management interface: http://localhost:15672
+   - Verify credentials (guest/guest)
+   - Check virtual host settings
+
+4. JWT Authentication Issues:
+   Problem: "401 Unauthorized" errors
+   Solutions:
+   - Verify JWT secret key configuration
+   - Check token expiration
+   - Ensure Bearer token format in headers
+   - Validate token structure and claims
+
+5. CORS Issues:
+   Problem: "CORS policy error"
+   Solutions:
+   - Configure CORS in Program.cs
+   - Verify frontend URL in CORS settings
+   - Check preflight request handling
+   - Validate HTTP methods allowed
+
+6. Frontend Build Issues:
+   Problem: "Build failed" or "Module not found"
+   Solutions:
+   - Clear node_modules: rm -rf node_modules && npm install
+   - Check TypeScript configuration
+   - Verify import statements
+   - Update dependencies: npm update
+
+7. Performance Issues:
+   Problem: Slow API responses
+   Solutions:
+   - Check database query performance
+   - Verify Redis cache hit rates
+   - Monitor connection pool usage
+   - Analyze slow query logs
+
+8. Stock Synchronization Issues:
+   Problem: Stock levels out of sync
+   Solutions:
+   - Check event publishing logs
+   - Verify RabbitMQ message delivery
+   - Monitor cache invalidation
+   - Check transaction rollback logic
+
+DEBUGGING TIPS:
+
+1. Enable Detailed Logging:
+   - Set logging level to Debug in appsettings.json
+   - Monitor logs/stockwise-*.log files
+   - Use structured logging for better analysis
+
+2. Database Debugging:
+   - Enable EF Core query logging
+   - Use SQL Server Profiler
+   - Check execution plans for slow queries
+
+3. Redis Debugging:
+   - Use Redis CLI: redis-cli monitor
+   - Check cache hit/miss ratios
+   - Monitor memory usage
+
+4. RabbitMQ Debugging:
+   - Use management interface for queue inspection
+   - Check message rates and acknowledgments
+   - Monitor connection status
+
+5. Frontend Debugging:
+   - Use browser developer tools
+   - Check network requests in Network tab
+   - Monitor console for JavaScript errors
+   - Use React Developer Tools
+
+PERFORMANCE MONITORING:
+
+Key Metrics to Monitor:
+- API response times
+- Database query performance
+- Cache hit rates
+- Memory usage
+- CPU utilization
+- Error rates
+- User session duration
+
+Tools and Techniques:
+- Application Insights for .NET monitoring
+- React DevTools for frontend debugging
+- SQL Server Management Studio for database analysis
+- Redis CLI for cache monitoring
+- RabbitMQ Management for message queue analysis
+
+===============================================================================
+CONCLUSION
+===============================================================================
+
+The StockWise project demonstrates a modern, scalable approach to inventory 
+management with the following key achievements:
+
+✅ Complete full-stack implementation with .NET Core and React
+✅ Event-driven architecture for scalability and maintainability
+✅ Redis caching for optimal performance
+✅ JWT authentication for security
+✅ Background services for automated monitoring
+✅ Real-time stock validation and updates
+✅ Modern, responsive user interface
+✅ Comprehensive API documentation
+✅ Production-ready architecture
+
+This system provides a solid foundation for enterprise-level inventory 
+management and can be extended with additional features such as:
+- Multi-warehouse support
+- Supplier management
+- Purchase order automation
+- Advanced analytics and reporting
+- Mobile applications
+- Third-party integrations
+
+The modular architecture ensures that these extensions can be added without 
+significant refactoring of the core system.
+
+For support or questions about this implementation, refer to the API 
+documentation at https://localhost:5127/swagger when the application is running.
+
+===============================================================================
+END OF WALKTHROUGH
+=============================================================================== 
